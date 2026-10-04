@@ -127,9 +127,48 @@ expressionInput.addEventListener(
 
 historyButton.addEventListener(
     "click",
-    openHistoryPanel
+    async () => {
+
+        openHistoryPanel();
+
+        await loadHistory();
+    }
 );
 
+historyList.addEventListener(
+    "click",
+    async (event) => {
+
+        const deleteButton =
+            event.target.closest(".history-delete");
+
+        if (!deleteButton) {
+            return;
+        }
+
+        const id =
+            deleteButton.dataset.historyId;
+
+        console.log("Deleting history id:", id);
+
+        deleteButton.disabled = true;
+        deleteButton.textContent = "...";
+
+        try {
+            await deleteHistory(id);
+
+            // 删除数据库记录后，重新读取数据库
+            await loadHistory();
+        }
+        catch (error) {
+            console.error(error);
+
+            showHistoryError(
+                error.message
+            );
+        }
+    }
+);
 
 closeHistoryButton.addEventListener(
     "click",
@@ -142,6 +181,31 @@ overlay.addEventListener(
     closeHistoryPanel
 );
 
+async function loadHistory() {
+
+    historyList.innerHTML = `
+        <div class="history-empty">
+            Loading...
+        </div>
+    `;
+
+
+    try {
+
+        const history =
+            await getHistory();
+
+        renderHistory(history);
+
+    }
+
+    catch (error) {
+
+        showHistoryError(
+            error.message
+        );
+    }
+}
 
 /* =========================================
    Initial state

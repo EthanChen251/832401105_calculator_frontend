@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calculator</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <main class="app">
+
+        <section class="calculator">
+
+            <header class="calculator-header">
+                <div>
+                    <p class="eyebrow">Calculator System</p>
+                    <h1>Calculator</h1>
+                </div>
+
+                <button
+                    id="historyButton"
+                    class="icon-button"
+                    type="button"
+                    title="History"
+                >
+                    History
+                </button>
+            </header>
+
+
+            <section class="display">
+
+                <label for="expression" class="display-label">
+                    Expression
+                </label>
+
+                <input
+                    id="expression"
+                    class="expression-input"
+                    type="text"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="Enter an expression"
+                >
+
+                <div class="result-area">
+                    <span class="result-label">Result</span>
+
+                    <span id="result" class="result-value">
+                        —
+                    </span>
+                </div>
+
+            </section>
+
+
+            <section class="keypad">
+
+                <button class="key key-function" data-action="clear">
+                    C
+                </button>
+
+                <button class="key key-function" data-action="backspace">
+                    ⌫
+                </button>
+
+                <button class="key key-function" data-value="(">
+                    (
+                </button>
+
+                <button class="key key-function" data-value=")">
+                    )
+                </button>
+
+
+                <button class="key" data-value="7">7</button>
+                <button class="key" data-value="8">8</button>
+                <button class="key" data-value="9">9</button>
+
+                <button
+                    class="key key-operator"
+                    data-value="/"
+                >
+                    ÷
+                </button>
+
+
+                <button class="key" data-value="4">4</button>
+                <button class="key" data-value="5">5</button>
+                <button class="key" data-value="6">6</button>
+
+                <button
+                    class="key key-operator"
+                    data-value="*"
+                >
+                    ×
+                </button>
+
+
+                <button class="key" data-value="1">1</button>
+                <button class="key" data-value="2">2</button>
+                <button class="key" data-value="3">3</button>
+
+                <button
+                    class="key key-operator"
+                    data-value="-"
+                >
+                    −
+                </button>
+
+
+                <button class="key key-zero" data-value="0">
+                    0
+                </button>
+
+                <button class="key" data-value=".">
+                    .
+                </button>
+
+                <button
+                    class="key key-operator"
+                    data-value="+"
+                >
+                    +
+                </button>
+
+
+                <button
+                    id="calculateButton"
+                    class="key key-equals"
+                    type="button"
+                >
+                    =
+                </button>
+
+            </section>
+
+        </section>
+
+
+        <aside id="historyPanel" class="history-panel">
+
+            <div class="history-header">
+
+                <div>
+                    <p class="eyebrow">Saved calculations</p>
+                    <h2>History</h2>
+                </div>
+
+                <button
+                    id="closeHistoryButton"
+                    class="icon-button"
+                    type="button"
+                >
+                    Close
+                </button>
+
+            </div>
+
+            <div id="historyList" class="history-list">
+
+                <div class="history-empty">
+                    History will appear here after the backend
+                    database API is connected.
+                </div>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+
+    <div id="overlay" class="overlay"></div>
+
+
+    <script src="./js/api.js"></script>
+    <script src="./js/ui.js"></script>
+    <script src="./js/app.js"></script>
+
+</body>
+
+</html>

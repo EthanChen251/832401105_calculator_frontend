@@ -1,0 +1,462 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --background: #0d1117;
+    --surface: #161b22;
+    --surface-light: #21262d;
+    --surface-hover: #2d333b;
+
+    --border: #30363d;
+
+    --text: #f0f6fc;
+    --text-secondary: #8b949e;
+
+    --accent: #ff9f0a;
+    --accent-hover: #ffb340;
+
+    --danger: #ff6b6b;
+
+    --radius-large: 28px;
+    --radius-medium: 18px;
+    --radius-small: 12px;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #1c2330 0%,
+            var(--background) 45%
+        );
+
+    color: var(--text);
+}
+
+
+/* =========================================
+   App layout
+   ========================================= */
+
+.app {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 32px;
+}
+
+
+/* =========================================
+   Calculator
+   ========================================= */
+
+.calculator {
+    width: min(100%, 460px);
+
+    padding: 28px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-large);
+
+    background:
+        rgba(22, 27, 34, 0.92);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.45);
+
+    backdrop-filter: blur(16px);
+}
+
+
+.calculator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 28px;
+}
+
+
+.eyebrow {
+    margin-bottom: 4px;
+
+    color: var(--text-secondary);
+
+    font-size: 0.76rem;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+
+h2 {
+    font-size: 1.5rem;
+}
+
+
+/* =========================================
+   Display
+   ========================================= */
+
+.display {
+    margin-bottom: 24px;
+
+    padding: 20px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-medium);
+
+    background: #0d1117;
+}
+
+
+.display-label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--text-secondary);
+
+    font-size: 0.82rem;
+}
+
+
+.expression-input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-size: 1.55rem;
+    font-weight: 500;
+}
+
+
+.expression-input::placeholder {
+    color: #484f58;
+}
+
+
+.result-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    min-height: 70px;
+
+    margin-top: 24px;
+    padding-top: 18px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+.result-label {
+    color: var(--text-secondary);
+
+    font-size: 0.85rem;
+}
+
+
+.result-value {
+    max-width: 75%;
+
+    overflow-wrap: anywhere;
+
+    text-align: right;
+
+    font-size: 2.4rem;
+    font-weight: 700;
+
+    transition: color 0.2s ease;
+}
+
+
+.result-value.error {
+    color: var(--danger);
+
+    font-size: 1rem;
+}
+
+
+/* =========================================
+   Keypad
+   ========================================= */
+
+.keypad {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 12px;
+}
+
+
+.key {
+    min-height: 64px;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-small);
+
+    background: var(--surface-light);
+
+    color: var(--text);
+
+    font-size: 1.15rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.08s ease,
+        background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+
+.key:hover {
+    background: var(--surface-hover);
+}
+
+
+.key:active {
+    transform: scale(0.96);
+}
+
+
+.key-function {
+    color: var(--text-secondary);
+
+    background: #1b2028;
+}
+
+
+.key-operator {
+    color: var(--accent);
+
+    background: rgba(255, 159, 10, 0.08);
+
+    border-color: rgba(255, 159, 10, 0.18);
+}
+
+
+.key-operator:hover {
+    background: rgba(255, 159, 10, 0.16);
+}
+
+
+.key-zero {
+    grid-column: span 2;
+}
+
+
+.key-equals {
+    grid-column: span 4;
+
+    color: #111;
+
+    background: var(--accent);
+
+    font-size: 1.4rem;
+}
+
+
+.key-equals:hover {
+    background: var(--accent-hover);
+}
+
+
+/* =========================================
+   Small buttons
+   ========================================= */
+
+.icon-button {
+    padding: 9px 13px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: var(--text-secondary);
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+
+.icon-button:hover {
+    background: var(--surface-light);
+
+    color: var(--text);
+}
+
+
+/* =========================================
+   History panel
+   ========================================= */
+
+.history-panel {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+
+    z-index: 20;
+
+    width: min(400px, 90vw);
+    height: 100vh;
+
+    padding: 28px;
+
+    border-left: 1px solid var(--border);
+
+    background: #11161d;
+
+    transform: translateX(100%);
+
+    transition: transform 0.25s ease;
+}
+
+
+.history-panel.open {
+    transform: translateX(0);
+}
+
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+.history-item {
+    padding: 16px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+
+    background: var(--surface);
+}
+
+
+.history-expression {
+    color: var(--text-secondary);
+
+    font-size: 0.9rem;
+}
+
+
+.history-result {
+    margin-top: 6px;
+
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+
+.history-empty {
+    padding: 24px;
+
+    color: var(--text-secondary);
+
+    text-align: center;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   Overlay
+   ========================================= */
+
+.overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 10;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity 0.25s ease;
+}
+
+
+.overlay.open {
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+/* =========================================
+   Responsive
+   ========================================= */
+
+@media (max-width: 520px) {
+
+    .app {
+        padding: 16px;
+        align-items: flex-start;
+    }
+
+    .calculator {
+        margin-top: 20px;
+
+        padding: 20px;
+
+        border-radius: 22px;
+    }
+
+    .key {
+        min-height: 58px;
+    }
+
+    .result-value {
+        font-size: 2rem;
+    }
+}

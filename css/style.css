@@ -122,9 +122,10 @@ h2 {
 .display {
     position: relative;
 
-    min-height: 200px;
+    min-height: 160px;
 
-    padding: 22px;
+    margin-bottom: 18px;
+    padding: 18px;
 
     border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 20px;
@@ -181,14 +182,14 @@ h2 {
 
 
 .result-area {
-    min-height: 78px;
+    min-height: 60px;
 
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
 
     margin-top: 8px;
-    padding-top: 20px;
+    padding-top: 14px;
 
     border-top: 1px solid rgba(255, 255, 255, 0.10);
 }
@@ -308,7 +309,7 @@ h2 {
 
 
 .key-zero {
-    grid-column: span 2;
+    grid-column: span 1;
 }
 
 

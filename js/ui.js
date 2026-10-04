@@ -13,9 +13,58 @@ const overlay =
 const historyList =
     document.getElementById("historyList");
 
+
+// =========================================
+// Expression state
+// =========================================
+
+let rawExpression = "";
+
+
+// 后端格式 -> 显示格式
+//
+// 3*4/2
+// ↓
+// 3×4÷2
+function formatExpression(expression) {
+
+    return expression
+        .replaceAll("*", "×")
+        .replaceAll("/", "÷");
+}
+
+
+// 显示格式 -> 后端格式
+//
+// 3×4÷2
+// ↓
+// 3*4/2
+function normalizeExpression(expression) {
+
+    return expression
+        .replaceAll("×", "*")
+        .replaceAll("÷", "/");
+}
+
+
+function updateExpressionDisplay() {
+
+    expressionInput.value =
+        formatExpression(rawExpression);
+}
+
+
+function getRawExpression() {
+
+    return rawExpression;
+}
+
+
 function appendToExpression(value) {
 
-    expressionInput.value += value;
+    rawExpression += value;
+
+    updateExpressionDisplay();
 
     expressionInput.focus();
 }
@@ -23,7 +72,9 @@ function appendToExpression(value) {
 
 function clearExpression() {
 
-    expressionInput.value = "";
+    rawExpression = "";
+
+    updateExpressionDisplay();
 
     showResult("—");
 
@@ -33,12 +84,18 @@ function clearExpression() {
 
 function removeLastCharacter() {
 
-    expressionInput.value =
-        expressionInput.value.slice(0, -1);
+    rawExpression =
+        rawExpression.slice(0, -1);
+
+    updateExpressionDisplay();
 
     expressionInput.focus();
 }
 
+
+// =========================================
+// Result
+// =========================================
 
 function showResult(value) {
 
@@ -56,21 +113,9 @@ function showError(message) {
 }
 
 
-function openHistoryPanel() {
-
-    historyPanel.classList.add("open");
-
-    overlay.classList.add("open");
-}
-
-
-function closeHistoryPanel() {
-
-    historyPanel.classList.remove("open");
-
-    overlay.classList.remove("open");
-}
-
+// =========================================
+// History
+// =========================================
 
 function renderHistory(history) {
 
@@ -100,14 +145,16 @@ function renderHistory(history) {
         item.innerHTML = `
             <div class="history-item-top">
 
-                <div>
+                <div class="history-content">
+
                     <div class="history-expression">
-                        ${record.expression}
+                        ${formatExpression(record.expression)}
                     </div>
 
                     <div class="history-result">
-                        = ${record.result}
+                        ${record.result}
                     </div>
+
                 </div>
 
                 <button
@@ -138,4 +185,35 @@ function showHistoryError(message) {
             ${message}
         </div>
     `;
+}
+
+
+// =========================================
+// History panel
+// =========================================
+
+function openHistoryPanel() {
+
+    historyPanel.classList.add("open");
+
+    overlay.classList.add("open");
+}
+
+
+function closeHistoryPanel() {
+
+    historyPanel.classList.remove("open");
+
+    overlay.classList.remove("open");
+}
+
+
+function syncExpressionFromInput() {
+
+    rawExpression =
+        normalizeExpression(
+            expressionInput.value
+        );
+
+    updateExpressionDisplay();
 }

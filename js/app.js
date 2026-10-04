@@ -51,12 +51,14 @@ document
 async function calculate() {
 
     const expression =
-        expressionInput.value.trim();
+        getRawExpression().trim();
 
 
     if (expression === "") {
 
-        showError("Please enter an expression.");
+        showError(
+            "Please enter an expression."
+        );
 
         return;
     }
@@ -70,15 +72,21 @@ async function calculate() {
     try {
 
         const data =
-            await calculateExpression(expression);
+            await calculateExpression(
+                expression
+            );
 
-        showResult(data.result);
+        showResult(
+            data.result
+        );
 
     }
 
     catch (error) {
 
-        showError(error.message);
+        showError(
+            error.message
+        );
 
     }
 
@@ -102,22 +110,8 @@ calculateButton.addEventListener(
    ========================================= */
 
 expressionInput.addEventListener(
-    "keydown",
-    (event) => {
-
-        if (event.key === "Enter") {
-
-            event.preventDefault();
-
-            calculate();
-        }
-
-
-        if (event.key === "Escape") {
-
-            clearExpression();
-        }
-    }
+    "input",
+    syncExpressionFromInput
 );
 
 
